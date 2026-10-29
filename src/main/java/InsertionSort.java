@@ -1,29 +1,24 @@
-// Uses decreasing gaps to sort values efficiently.
-public class ShellSort implements SortingAlgorithm {
+// Sorts values by inserting each value into its correct position.
+public class InsertionSort implements SortingAlgorithm {
 
     @Override
     public String getName() {
-        return "Shell Sort";
+        return "Insertion Sort";
     }
 
     @Override
     public void sort(double[] values) {
-        int n = values.length;
+        for (int i = 1; i < values.length; i++) {
+            double key = values[i];
+            int j = i - 1;
 
-        // Reduce the gap until it reaches zero.
-        for (int gap = n / 2; gap > 0; gap /= 2) {
-            for (int i = gap; i < n; i++) {
-                double temp = values[i];
-                int j = i;
-
-                // Insert the value into its gap-sorted position.
-                while (j >= gap && values[j - gap] > temp) {
-                    values[j] = values[j - gap];
-                    j -= gap;
-                }
-
-                values[j] = temp;
+            // Shift larger values one position to the right.
+            while (j >= 0 && values[j] > key) {
+                values[j + 1] = values[j];
+                j--;
             }
+
+            values[j + 1] = key;
         }
     }
 }
